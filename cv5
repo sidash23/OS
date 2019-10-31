@@ -2,7 +2,7 @@
 set -e
 set -u 
 set -o pipefail
-set -o xtrace
+
 
 #Function to see primary group of user
 function primary_gr {
@@ -19,13 +19,13 @@ if [ $g_flag -eq 1 ]
 then 
 	echo "User '$user_name' :"
 	echo "Primary group: "
-	echo primary_gr
+	echo $(primary_gr)
 	exit 0
 fi 
 
 	echo "User '$user_name' results :"
 	echo "All groups are": 
-	echo all_gr
+	echo $(all_gr)
 	exit 0 
 
 
@@ -41,7 +41,6 @@ g_flag=0
 user_name="$USER"
 
 while getopts 'hgu:' opt; do
-echo "WEQW"
 case $opt in 
 	h)
 	usage
