@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/bin/bash
 set -e
 set -u 
 set -o pipefail
@@ -18,19 +18,21 @@ function main {
 if [ $g_flag -eq 1 ]
 then 
 	echo "User '$user_name' :"
-	echo "Primary group: $primary_gr"
+	echo "Primary group: "
+	echo primary_gr
 	exit 0
 fi 
 
 	echo "User '$user_name' results :"
-	echo "All groups are": $all_gr"
+	echo "All groups are": 
+	echo all_gr
 	exit 0 
 
 
 }
 
 function usage {
-$(basename $0) [-h] [-g] [-u username]" >&2
+echo "script usage: $(basename $0) [-h] [-g] [-u username]" >&2
 exit 1
 }
 
