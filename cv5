@@ -1,0 +1,63 @@
+#!/usr/bin/env
+set -e
+set -u 
+set -o pipefail
+set -o xtrace
+
+#Function to see primary group of user
+function primary_gr {
+grep 'grep $user_name /etc/passwd | cut -d : -f 4' /etc/group | cut -d : -f 1
+}
+#Function to see all groups of user
+function all_gr {
+groups $user_name
+}
+
+#
+function main { 
+if [ $g_flag -eq 1 ]
+then 
+	echo "User '$user_name' :"
+	echo "Primary group: $primary_gr"
+	exit 0
+fi 
+
+	echo "User '$user_name' results :"
+	echo "All groups are": $all_gr"
+	exit 0 
+
+
+}
+
+function usage {
+$(basename $0) [-h] [-g] [-u username]" >&2
+exit 1
+}
+
+#For  use -u option i used flag
+g_flag=0
+user_name="$USER"
+
+while getopts 'hgu:' opt; do
+echo "WEQW"
+case $opt in 
+	h)
+	usage
+	;;
+	g)
+	g_flag=1 
+	;;
+	u)
+	user_name="$OPTARG"
+	;;
+	\?)
+	echo "Invalid option -$OPTARG" >&2
+	;;
+	:)
+	echo "Option -$OPTARG requiers an argument." >&2
+	exit 1
+	;;
+ esac
+done
+shift "$(($OPTIND -1))"
+main 
